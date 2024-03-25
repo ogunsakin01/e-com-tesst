@@ -19,6 +19,7 @@ class ProductModelTest extends TestCase
     {
         $product = Product::factory()->make();
         $this->assertArrayHasKey('name', $product);
+        $this->assertArrayHasKey('slug', $product);
         $this->assertArrayHasKey('user_id', $product);
         $this->assertArrayHasKey('sku', $product);
         $this->assertArrayHasKey('quantity', $product);

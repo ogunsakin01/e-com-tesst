@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AvailabilityController;
-use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +24,13 @@ Route::prefix('v1')->group(function(){
     Route::post('/login', [AuthController::class, 'login']);
     Route::middleware('auth:sanctum')->group(function(){
         Route::get('/user', function (Request $request) {return $request->user();});
-
+        Route::prefix('products')->group(function(){
+            Route::get('/', [ProductController::class, 'index']);
+            Route::get('/{product}', [ProductController::class, 'get']);
+            Route::post('/create', [ProductController::class, 'create']);
+            Route::put('/{product}', [ProductController::class, 'update']);
+            Route::delete('/{product}', [ProductController::class, 'delete']);
+        });
     });
 });
 

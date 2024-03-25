@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -17,9 +18,11 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->word(). ' '. fake()->word();
         return [
             'user_id' => User::factory()->create()->id,
-            'name' => fake()->word(),
+            'name' => $name,
+            'slug' => Str::slug($name),
             'description' => fake()->sentence(),
             'price' => 250.00,
             'sku' => fake()->uuid(),
