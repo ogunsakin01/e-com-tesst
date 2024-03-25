@@ -1,5 +1,5 @@
 # Part 1: Simple Ecom API && Part 2: PHP Code Test
-![GitHub Actions](https://github.com/ogunsakin01/e-com-test/actions/workflows/laravel   .yml/badge.svg)
+![GitHub Actions](https://github.com/ogunsakin01/e-com-test/actions/workflows/laravel.yml/badge.svg)
 ## Installation
 
 ### Prerequisites
@@ -89,4 +89,3 @@ vendon/bin/phpunit
 Make sure to run these commands from the root folder of the application. The tests will help ensure that the application functions as expected and that any changes made in the future do not introduce regressions.
 
 ## API Documentation
-The API documentation can be found at [https://documenter.getpostman.com/view/3172372/2s9YsNcUxg](https://documenter.getpostman.com/view/3172372/2s9YsNcUxg)
