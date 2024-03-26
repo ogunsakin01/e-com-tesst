@@ -25,7 +25,7 @@ class CartItemFactory extends Factory
             'user_id' => User::factory()->create()->id,
             'order_id' => Order::factory()->create()->id,
             'quantity' => 1,
-            'old_price' => 0,
+            'old_price' => $product->price,
             'price' => $product->price
         ];
     }

@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\User;
 use Tests\TestCase;
@@ -105,7 +104,6 @@ class CartTest extends TestCase
     }
 
     public function test_can_not_remove_invalid_product_from_cart(){
-        $product = Product::first() ?? Product::factory()->create();
         $response = $this->post('/api/v1/cart-items/remove', [
             'product_id' => 200,
             'quantity' => 10
@@ -117,5 +115,16 @@ class CartTest extends TestCase
         $this->assertArrayHasKey('message', $response);
         $this->assertArrayHasKey('errors', $response);
         $this->assertEquals('The selected product id is invalid.', $response['message']);
+    }
+
+    public function test_can_get_all_auth_user_cart_items(){
+        $response = $this->get('/api/v1/cart-items',[
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer '. $this->token
+        ]);
+        $response->assertStatus(200);
+        $this->assertArrayHasKey('links', $response);
+        $this->assertArrayHasKey('data', $response);
+        $this->assertArrayHasKey('meta', $response);
     }
 }

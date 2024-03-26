@@ -107,6 +107,5 @@ class AuthenticationTest extends TestCase
             'email' => $this->testUser['email'],
             'name' => $this->testUser['name']
         ]);
-
     }
 }

@@ -90,3 +90,9 @@ Make sure to run these commands from the root folder of the application. The tes
 
 ## API Documentation
 You can find the published API documentation [here](https://documenter.getpostman.com/view/3172372/2sA35D5P1y)
+
+
+
+# Part 2 
+
+The part 2 of the assessment that contains a series of 4 questions can be found in the web route

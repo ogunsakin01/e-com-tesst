@@ -18,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::post('/test', function () {
-    return json_encode(['I got here']);
-});
-
 Route::prefix('v1')->group(function () {
 
     Route::post('/register', [AuthController::class, 'register']);
@@ -53,4 +49,7 @@ Route::prefix('v1')->group(function () {
         });
     });
 });
+
+
+
 
