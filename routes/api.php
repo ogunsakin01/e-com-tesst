@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,16 +18,22 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::post('/test', function (){
+Route::post('/test', function () {
     return json_encode(['I got here']);
 });
 
-Route::prefix('v1')->group(function(){
+Route::prefix('v1')->group(function () {
+
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
-    Route::middleware('auth:sanctum')->group(function(){
-        Route::get('/user', function (Request $request) {return \App\Http\Resources\UserResource::make($request->user());});
-        Route::prefix('products')->group(function(){
+
+    Route::middleware('auth:sanctum')->group(function () {
+
+        Route::get('/user', function (Request $request) {
+            return UserResource::make($request->user());
+        });
+
+        Route::prefix('products')->group(function () {
             Route::get('/', [ProductController::class, 'index']);
             Route::get('/{product}', [ProductController::class, 'get']);
             Route::post('/create', [ProductController::class, 'create']);
@@ -34,13 +41,13 @@ Route::prefix('v1')->group(function(){
             Route::delete('/{product}', [ProductController::class, 'delete']);
         });
 
-        Route::prefix('cart-items')->group(function(){
+        Route::prefix('cart-items')->group(function () {
             Route::get('/', [CartController::class, 'index']);
             Route::post('/add', [CartController::class, 'addToCart']);
             Route::post('/remove', [CartController::class, 'removeFromCart']);
         });
 
-        Route::prefix('orders')->group(function(){
+        Route::prefix('orders')->group(function () {
             Route::get('/', [OrderController::class, 'index']);
             Route::post('/create', [OrderController::class, 'create']);
         });

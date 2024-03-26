@@ -16,6 +16,7 @@ class CreateOrderActions
     private array $request;
     private Order $order;
     private Collection $cartItems;
+    private PaymentLog $paymentLog;
 
     public function placeOrder(array $request): array
     {
@@ -27,9 +28,11 @@ class CreateOrderActions
             $this->validateProductsQuantity();
             $this->createOrder();
             $this->createPaymentLog();
-            $this->updateCartItems();
+            $this->updateOrderPaymentCartItems();
 
             DB::commit();
+
+            $this->order->refresh();
             return [
                 'code' => 200,
                 'message' => 'Order placed successfully',
@@ -81,19 +84,19 @@ class CreateOrderActions
 
     private function createPaymentLog(): void
     {
-        $paymentLog = PaymentLog::create([
+        $this->paymentLog = PaymentLog::create([
             'order_id' => $this->order->id,
             'user_id' => Auth::id(),
             'amount' => $this->order->total_price,
             'status' => 'success'
         ]);
-        $this->order->update(['payment_status' => $paymentLog->status]);
     }
 
-    private function updateCartItems(): void
+    private function updateOrderPaymentCartItems(): void
     {
         $this->cartItems->each(function ($cartItem) {
             $cartItem->update(['order_id' => $this->order->id]);
         });
+        $this->order->update(['payment_status' => $this->paymentLog->status]);
     }
 }
