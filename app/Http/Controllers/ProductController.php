@@ -20,12 +20,7 @@ class ProductController extends Controller
     public function index(): JsonResponse
     {
         $products = Product::paginate();
-        $response = [
-            'code' => 200,
-            'message' => 'Products retrieved',
-            'data' => ProductCollection::make($products)
-        ];
-        return $this->formattedResponse($response);
+        return response()->json(ProductCollection::make($products)->response()->getData());
     }
 
     public function create(CreateProductRequest $request): JsonResponse

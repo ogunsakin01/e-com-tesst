@@ -42,10 +42,7 @@ Route::prefix('v1')->group(function(){
 
         Route::prefix('orders')->group(function(){
             Route::get('/', [OrderController::class, 'index']);
-            Route::get('/{order}', [OrderController::class, 'get']);
             Route::post('/create', [OrderController::class, 'create']);
-            Route::put('/{order}', [OrderController::class, 'update']);
-            Route::delete('/{order}', [OrderController::class, 'delete']);
         });
     });
 });

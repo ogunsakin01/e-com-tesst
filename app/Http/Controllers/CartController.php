@@ -20,12 +20,7 @@ class CartController extends Controller
     public function index(){
         $cartItems = CartItem::where('user_id', Auth::id())
             ->whereNull('order_id')->paginate();
-
-        return $this->formattedResponse([
-            'code' => 200,
-            'message' => 'Cart items retrieved',
-            'data' => CartItemCollection::make($cartItems)
-        ]);
+        return response()->json(CartItemCollection::make($cartItems)->response()->getData());
     }
 
     public function addToCart(CartItemRequest $request): JsonResponse

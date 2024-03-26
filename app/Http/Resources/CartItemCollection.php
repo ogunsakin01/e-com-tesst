@@ -14,6 +14,6 @@ class CartItemCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return ['items' => $this->collection];
     }
 }
