@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
+ * @extends Factory<\App\Models\Product>
  */
 class ProductFactory extends Factory
 {
@@ -22,7 +22,7 @@ class ProductFactory extends Factory
         return [
             'user_id' => User::factory()->create()->id,
             'name' => $name,
-            'slug' => Str::slug($name),
+            'slug' => uniqid(). '-' .Str::slug($name),
             'description' => fake()->sentence(),
             'price' => 250.00,
             'sku' => fake()->uuid(),

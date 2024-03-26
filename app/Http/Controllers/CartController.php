@@ -17,7 +17,8 @@ class CartController extends Controller
 
     public function __construct(private AddToCartItemActions $addToCartItemActions, private RemoveFromCartActions $removeFromCartActions){}
 
-    public function index(){
+    public function index(): JsonResponse
+    {
         $cartItems = CartItem::where('user_id', Auth::id())
             ->whereNull('order_id')->paginate();
         return response()->json(CartItemCollection::make($cartItems)->response()->getData());

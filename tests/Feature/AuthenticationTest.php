@@ -22,11 +22,7 @@ class AuthenticationTest extends TestCase
             'password_confirmation' => 'password'
         ];
 
-        $this->testUser = User::create([
-            'name' => fake()->name(),
-            'email' => fake()->safeEmail(),
-            'password' => Hash::make('password')
-        ]);
+        $this->testUser = User::factory()->create();
     }
 
     /**
