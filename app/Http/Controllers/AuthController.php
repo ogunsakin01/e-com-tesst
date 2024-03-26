@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Helpers\ResponseHelper;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegistrationRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +24,7 @@ class AuthController extends Controller
         return $this->formattedResponse([
             'code' => 200,
             'message' => 'Registration successful',
-            'data' => $user
+            'data' => UserResource::make($user)
         ]);
     }
 
@@ -41,7 +42,7 @@ class AuthController extends Controller
             'code' => 200,
             'message' => 'Login successful',
             'data' => [
-                'user' => $user,
+                'user' => UserResource::make($user),
                 'token' => $token->plainTextToken
             ]
         ]);

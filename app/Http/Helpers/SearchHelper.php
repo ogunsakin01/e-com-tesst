@@ -59,7 +59,6 @@ trait SearchHelper
             ->paginate(10, ['*'], 'page', $this->page);
     }
 
-
     private function buildAllPossibleResponse(): void
     {
         if(!is_null($this->page)) return;

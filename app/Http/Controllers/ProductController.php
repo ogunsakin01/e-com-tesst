@@ -6,6 +6,8 @@ use App\Http\Actions\ProductActions;
 use App\Http\Helpers\ResponseHelper;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 
@@ -17,7 +19,12 @@ class ProductController extends Controller
 
     public function index(): JsonResponse
     {
-        $response = $this->productActions->getAll();
+        $products = Product::paginate();
+        $response = [
+            'code' => 200,
+            'message' => 'Products retrieved',
+            'data' => ProductCollection::make($products)
+        ];
         return $this->formattedResponse($response);
     }
 
@@ -37,7 +44,7 @@ class ProductController extends Controller
     {
         return $this->formattedResponse([
             'message' => 'Product retrieved',
-            'data' => $product,
+            'data' => ProductResource::make($product),
             'status' => 200
         ]);
     }
@@ -47,7 +54,8 @@ class ProductController extends Controller
         $product->delete();
         return $this->formattedResponse([
             'message' => 'Product safely deleted',
-            'status' => 200
+            'status' => 200,
+            'data' => []
         ]);
     }
 
