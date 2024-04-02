@@ -39,7 +39,7 @@ class CreateOrderActions
                 'data' => OrderResource::make($this->order)
             ];
         } catch (Exception $e) {
-            Db::rollBack();
+            DB::rollBack();
             return [
                 'message' => $e->getMessage(),
                 'code' => in_array($e->getCode(), [500, 422]) ? $e->getCode() : 400,

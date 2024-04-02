@@ -2,7 +2,6 @@
 
 namespace App\Http\Actions;
 
-use App\Http\Helpers\SearchHelper;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Exception;
@@ -11,7 +10,6 @@ use Illuminate\Support\Str;
 
 class ProductActions
 {
-    use SearchHelper;
 
     public function create(array $request): array
     {
@@ -28,7 +26,7 @@ class ProductActions
                 'data' => ProductResource::make($product)
             ];
         } catch (Exception $e) {
-            Db::rollBack();
+            DB::rollBack();
             return [
                 'message' => $e->getMessage(),
                 'code' => in_array($e->getCode(), [500, 422]) ? $e->getCode() : 400,
@@ -51,7 +49,7 @@ class ProductActions
                 'data' => ProductResource::make($product->refresh())
             ];
         } catch (Exception $e) {
-            Db::rollBack();
+            DB::rollBack();
             return [
                 'message' => $e->getMessage(),
                 'code' => in_array($e->getCode(), [500, 422]) ? $e->getCode() : 400,
